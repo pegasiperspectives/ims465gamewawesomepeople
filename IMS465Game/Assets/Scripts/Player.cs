@@ -9,7 +9,6 @@ public class Player : MonoBehaviour
     [Header("Movement")]
     [Tooltip("Change how fast the Player moves"), Min(0), SerializeField] 
     private float speed = 1f;
-
     [Tooltip("How far up the player can move"), SerializeField] 
     private float UpLimit = -1;
     [Tooltip("How far down the player can move"), SerializeField]
@@ -26,6 +25,9 @@ public class Player : MonoBehaviour
     {
         // sets respawn postion
         respawnPos = transform.position;
+
+        // sets full health at start
+        SetCurrentHealth(maxHealth);
 
         /*SetCurrentHealth(6);
         DamagePlayer(0);
@@ -50,6 +52,15 @@ public class Player : MonoBehaviour
     public int GetHealth()
     {
         return currentHealth;
+    }
+
+    /// <summary>
+    /// Gets the max health of the player
+    /// </summary>
+    /// <returns> maxHealth </returns>
+    public int GetMaxHealth()
+    {
+        return maxHealth;
     }
 
     /// <summary>
@@ -87,49 +98,67 @@ public class Player : MonoBehaviour
     private void Movement()
     {
         float horizontalInput = Input.GetAxis("Horizontal"); // -1 -> 1 horizontal input movement
-        float verticalInput = 0; // 0 to set standing still
+        float verticalInput = VerticalInput(); // -1 -> 1 vetical input movement
 
-        // vetical input movement
+        // allows for running
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            // allows for the horizontal and vertical movement
+            transform.Translate(Vector2.right * speed * 2 * horizontalInput * Time.deltaTime);
+            transform.Translate(Vector2.up * (speed / 2) * 2 * verticalInput * Time.deltaTime); // running
+        }
+        else
+        {
+            // allows for the horizontal and vertical movement
+            transform.Translate(Vector2.right * speed * horizontalInput * Time.deltaTime);
+            transform.Translate(Vector2.up * (speed / 2) * verticalInput * Time.deltaTime); // walking
+        }
+    }
+
+    /// <summary>
+    /// The verticalInput of moving up and down. Used to limit vertical movement
+    /// </summary>
+    /// <returns> -1 if moving down, 1 if moving up, 0 if not moving </returns>
+    private int VerticalInput()
+    {
         if (transform.position.y <= UpLimit && transform.position.y >= DownLimit) // if in the middle and all good
         {
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKey(KeyCode.W)) // up
             {
-                verticalInput = 1;
+                return 1;
             }
 
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetKey(KeyCode.S)) // down
             {
-                verticalInput = -1;
-
-                if (Input.GetKey(KeyCode.W))
+                if (Input.GetKey(KeyCode.W)) // both are pressed
                 {
-                    verticalInput = 0;
+                    return 0;
                 }
+
+                return -1;
             }
         }
         else if (transform.position.y > UpLimit && transform.position.y >= DownLimit) // if too high
         {
             if (Input.GetKey(KeyCode.S))
             {
-                verticalInput = -1;
+                return -1;
             }
         }
         else if (transform.position.y <= UpLimit && transform.position.y < DownLimit) // if too low
         {
             if (Input.GetKey(KeyCode.W))
             {
-                verticalInput = 1;
+                return 1;
             }
         }
 
         if (Input.GetKeyUp(KeyCode.W) && Input.GetKeyDown(KeyCode.S)) // if not moving
         {
-            verticalInput = 0;
+            return 0;
         }
 
-        // allows for the horizontal and vertical movement
-        transform.Translate(Vector2.right * speed * horizontalInput * Time.deltaTime);
-        transform.Translate(Vector2.up * speed/2 * verticalInput * Time.deltaTime);
+        return 0;
     }
 
     //----------------------------------------------------------------------------------------------------------------------
