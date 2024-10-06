@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private Rigidbody2D rb;
+
     private Vector3 respawnPos;
 
     [Header("Movement")]
@@ -20,9 +22,15 @@ public class Player : MonoBehaviour
     [Tooltip("The current amount of health the player has"), Min(0), SerializeField]
     private int currentHealth;
 
+    // Temporary
+    private float damageRate = .1f;
+    private float canDamage = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
+
         // sets respawn postion
         respawnPos = transform.position;
 
@@ -39,7 +47,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         // gets the movement working
-        Movement();
+        Movement2();
     }
 
     //----------------------------------------------------------------------------------------------------------------------
@@ -95,23 +103,31 @@ public class Player : MonoBehaviour
     /// <summary>
     /// Movement of the Player
     /// </summary>
-    private void Movement()
+    private void Movement2()
     {
         float horizontalInput = Input.GetAxis("Horizontal"); // -1 -> 1 horizontal input movement
         float verticalInput = VerticalInput(); // -1 -> 1 vetical input movement
 
         // allows for running
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift)) //running
         {
+            // gets the velocity of the movement
+            Vector2 velocityX = Vector2.right * speed * 2 * horizontalInput * Time.deltaTime * .03f;
+            Vector2 velocityY = Vector2.up * (speed / 2) * 2 * verticalInput * Time.deltaTime * .03f;
+
             // allows for the horizontal and vertical movement
-            transform.Translate(Vector2.right * speed * 2 * horizontalInput * Time.deltaTime);
-            transform.Translate(Vector2.up * (speed / 2) * 2 * verticalInput * Time.deltaTime); // running
+            rb.AddForce(velocityX, ForceMode2D.Force);
+            rb.AddForce(velocityY, ForceMode2D.Force);
         }
-        else
+        else // walking
         {
+            // gets the velocity of the movement
+            Vector2 velocityX = Vector2.right * speed * horizontalInput * Time.deltaTime * .03f;
+            Vector2 velocityY = Vector2.up * (speed / 2) * verticalInput * Time.deltaTime * .03f;
+
             // allows for the horizontal and vertical movement
-            transform.Translate(Vector2.right * speed * horizontalInput * Time.deltaTime);
-            transform.Translate(Vector2.up * (speed / 2) * verticalInput * Time.deltaTime); // walking
+            rb.AddForce(velocityX, ForceMode2D.Force);
+            rb.AddForce(velocityY, ForceMode2D.Force);
         }
     }
 
@@ -164,6 +180,10 @@ public class Player : MonoBehaviour
     //----------------------------------------------------------------------------------------------------------------------
     // Damage
 
+    /// <summary>
+    /// Damages the player
+    /// </summary>
+    /// <param name="damageAmount"> The amount of Damage the player will take </param>
     private void DamagePlayer(int damageAmount)
     {
         // avoid negatives
@@ -197,22 +217,30 @@ public class Player : MonoBehaviour
         transform.position = respawnPos;
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("We colidied with: " + collision.gameObject.name);
 
+        // if colliding with an item
         if (collision.gameObject.CompareTag("Item"))
         {
-            Item itemSript = gameObject.GetComponent<Item>();
-
-            if (itemSript != null)
+            // damage player after a small amount of time
+            if (canDamage < Time.time)
             {
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    itemSript.pickUp();
-                }
-            }
+                DamagePlayer(1);
+                canDamage = Time.time + damageRate;
+            } 
         }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        
     }
 
 

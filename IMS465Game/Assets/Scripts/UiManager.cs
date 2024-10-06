@@ -14,7 +14,6 @@ public class UiManager : MonoBehaviour
     [SerializeField] bool divide;
     [SerializeField] bool percentage;
 
-    int currentHealth = 0;
     int pastHealthAmount = 0;
 
     // Start is called before the first frame update
@@ -23,19 +22,15 @@ public class UiManager : MonoBehaviour
         // connecting scripts
         P = GameObject.Find("Player").GetComponent<Player>();
 
-        if (P != null)
-            currentHealth = P.GetHealth();
-
     }
 
     // Update is called once per frame
     void Update()
     {
         // if player exists and cursor isn't visible
-        if (P != null && pastHealthAmount != currentHealth)
+        if (P != null)
         {
             HealthBarControl();
-            pastHealthAmount = currentHealth; // update past health
         }
     }
 
