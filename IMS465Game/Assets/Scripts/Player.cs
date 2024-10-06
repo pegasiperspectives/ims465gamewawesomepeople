@@ -137,16 +137,21 @@ public class Player : MonoBehaviour
     /// <returns> -1 if moving down, 1 if moving up, 0 if not moving </returns>
     private int VerticalInput()
     {
+        KeyCode MovingUpKey = KeyCode.W;
+        KeyCode MovingUpAltKey = KeyCode.UpArrow;
+        KeyCode MovingDownKey = KeyCode.S;
+        KeyCode MovingDownAltKey = KeyCode.DownArrow;
+
         if (transform.position.y <= UpLimit && transform.position.y >= DownLimit) // if in the middle and all good
         {
-            if (Input.GetKey(KeyCode.W)) // up
+            if (Input.GetKey(MovingUpKey) || Input.GetKey(MovingUpAltKey)) // up
             {
                 return 1;
             }
 
-            if (Input.GetKey(KeyCode.S)) // down
+            if (Input.GetKey(MovingDownKey) || Input.GetKey(MovingDownAltKey)) // down
             {
-                if (Input.GetKey(KeyCode.W)) // both are pressed
+                if (Input.GetKey(MovingUpKey) || Input.GetKey(MovingUpAltKey)) // both are pressed
                 {
                     return 0;
                 }
@@ -156,20 +161,20 @@ public class Player : MonoBehaviour
         }
         else if (transform.position.y > UpLimit && transform.position.y >= DownLimit) // if too high
         {
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetKey(MovingDownKey) || Input.GetKey(MovingDownAltKey))
             {
                 return -1;
             }
         }
         else if (transform.position.y <= UpLimit && transform.position.y < DownLimit) // if too low
         {
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKey(MovingUpKey) || Input.GetKey(MovingUpAltKey))
             {
                 return 1;
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.W) && Input.GetKeyDown(KeyCode.S)) // if not moving
+        if (((Input.GetKey(MovingUpKey) || Input.GetKey(MovingUpAltKey))) && (Input.GetKey(MovingDownKey) || Input.GetKey(MovingDownAltKey))) // if not moving
         {
             return 0;
         }
