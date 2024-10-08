@@ -7,7 +7,7 @@ public class Item : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI ItemInstructions;
 
-    // Start is called before the first frame update
+    // Start is called before the first frame update ooga booga
     void Start()
     {
         
