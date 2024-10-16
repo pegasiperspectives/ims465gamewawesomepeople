@@ -1695,7 +1695,7 @@ SpriteRenderer:
   m_Size: {x: 19.2, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &557279915
@@ -4286,6 +4286,8 @@ MonoBehaviour:
   speed: 6
   UpLimit: -2.3
   DownLimit: -2.9
+  maxHealth: 0
+  currentHealth: 0
 --- !u!50 &1337491613
 Rigidbody2D:
   serializedVersion: 4
