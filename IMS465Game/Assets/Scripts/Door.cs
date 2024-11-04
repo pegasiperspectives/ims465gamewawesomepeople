@@ -7,6 +7,8 @@ public class Door : MonoBehaviour
 {
     private GameObject closedoor;
     private GameObject opendoor;
+
+    public Key keyScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +23,7 @@ public class Door : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.CompareTag("Player")) {
+        if (collision.gameObject.CompareTag("Player") && keyScript.hasKey == true) {
             closedoor.SetActive(false);
             opendoor.SetActive(true);
         }
