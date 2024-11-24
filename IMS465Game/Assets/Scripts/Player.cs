@@ -224,7 +224,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("We colidied with: " + collision.gameObject.name);
+        Debug.Log("We collided with: " + collision.gameObject.name);
 
         // if colliding with an item
         if (collision.gameObject.CompareTag("Item"))
