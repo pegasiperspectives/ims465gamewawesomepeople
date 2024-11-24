@@ -30,15 +30,10 @@ public class Door : MonoBehaviour
     //when you run into a door
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && keyScript.hasKey == true && needsKey == true)
-        {
-            closedoor.SetActive(false);
-            openDoorNoCollider();
-        }
-        else
-        {
-            openDoorNoCollider();
-        }
+        //if (collision.gameObject.CompareTag("Player") && keyScript.hasKey == true && needsKey == true)
+        closedoor.SetActive(false);
+        opendoor.SetActive(true);
+        openDoorNoCollider();
     }
 
     //when you pass through a door
@@ -47,6 +42,7 @@ public class Door : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             closedoor.SetActive(true);
+            opendoor.SetActive(false);
             if (hitDoor != null)
             {
                 hitDoor.enabled = true;
@@ -57,7 +53,6 @@ public class Door : MonoBehaviour
 
     private void openDoorNoCollider()
     {
-        opendoor.SetActive(true);
         if (hitDoor != null)
         {
             hitDoor.enabled = false;
