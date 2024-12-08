@@ -93,6 +93,9 @@ public class Door : MonoBehaviour
         {
             if (open)
             {
+                Debug.Log("Player y pos: " + (collision.transform.position.y));
+                Debug.Log("Door y pos: " + transform.position.y);
+
                 TM.doorMove(collision.gameObject, openRightSide);
             }
         }

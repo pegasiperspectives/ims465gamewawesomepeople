@@ -9,7 +9,7 @@ public class Stairs : MonoBehaviour
     private GameObject finalPos;
 
     [Header("Stairs")]
-    [Tooltip("HAve the stairs move up or down"), SerializeField]
+    [Tooltip("Have the stairs move up or down"), SerializeField]
     private bool moveUp;
 
     // Start is called before the first frame update
@@ -32,12 +32,15 @@ public class Stairs : MonoBehaviour
         {
             if (!moveUp)
             {
-                if (collision.transform.position.x + .1f > transform.position.x && collision.transform.position.y + .5f > transform.position.y)
+                if (collision.transform.position.x + .1f > transform.position.x && collision.transform.position.y + 4f > transform.position.y)
                     TM.stairsMove(collision.gameObject, finalPos);
             }
             else
             {
-                if (collision.transform.position.x - .2f < transform.position.x && collision.transform.position.y + .3f > transform.position.y)
+                Debug.Log("Player y pos: " + (collision.transform.position.y + 2f));
+                Debug.Log("Stairs y pos: " + transform.position.y);
+
+                if (collision.transform.position.x - .2f < transform.position.x && collision.transform.position.y + 2.2f > transform.position.y)
                     TM.stairsMove(collision.gameObject, finalPos);
             }
 
