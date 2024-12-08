@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "StrangeTower.sln"
+    "dotnet.defaultSolution": "IMS465Game.sln"
 }
