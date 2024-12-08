@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI ItemInstructions;
+    [SerializeField] private GameObject ItemInstructions;
 
     // Start is called before the first frame update ooga booga
     void Start()

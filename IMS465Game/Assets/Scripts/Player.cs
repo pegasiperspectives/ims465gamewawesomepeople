@@ -97,6 +97,22 @@ public class Player : MonoBehaviour
             currentHealth = maxHealth;
     }
 
+    public float GetYWalkLimitTop()
+    {
+        return UpLimit;
+    }
+
+    public float GetYWalkLimitBottom()
+    {
+        return DownLimit;
+    }
+
+    public void SetYWalkLimits(float topLimit, float bottomLimit)
+    {
+        UpLimit = topLimit;
+        DownLimit = bottomLimit;
+    }
+
     //----------------------------------------------------------------------------------------------------------------------
     // Movement
 
