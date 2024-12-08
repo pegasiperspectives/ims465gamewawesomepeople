@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class TraversalManager : MonoBehaviour
 {
+    [Header("Traversal Manager")]
+    [Tooltip("The Main Camera so it moves around with player"), SerializeField]
+    private GameObject Camera;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,15 +45,15 @@ public class TraversalManager : MonoBehaviour
         {
             if (Player.transform.position.y < finalPos.transform.position.y)
             {
-                float topLimit = P.GetYWalkLimitTop() + 10;
-                float bottomLimit = P.GetYWalkLimitBottom() + 10;
+                float topLimit = P.GetYWalkLimitTop() + 10.5f;
+                float bottomLimit = P.GetYWalkLimitBottom() + 10.5f;
 
                 P.SetYWalkLimits(topLimit, bottomLimit);
             }
             else if (Player.transform.position.y > finalPos.transform.position.y)
             {
-                float topLimit = P.GetYWalkLimitTop() - 10;
-                float bottomLimit = P.GetYWalkLimitBottom() - 19;
+                float topLimit = P.GetYWalkLimitTop() - 10.5f;
+                float bottomLimit = P.GetYWalkLimitBottom() - 10.5f;
 
                 P.SetYWalkLimits(topLimit, bottomLimit);
             }
