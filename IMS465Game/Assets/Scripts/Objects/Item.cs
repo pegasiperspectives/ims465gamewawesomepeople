@@ -48,7 +48,7 @@ public class Item : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("We colidied with: " + collision.gameObject.name);
+        //Debug.Log("We colidied with: " + collision.gameObject.name);
 
         // If colliding with the player
         if (collision.gameObject.CompareTag("Player"))
