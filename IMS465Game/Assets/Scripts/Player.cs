@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
 
     private Vector3 respawnPos;
 
+    public DialogueUI dia;
+
     [Header("Movement")]
     [Tooltip("Change how fast the Player moves"), Min(0), SerializeField] 
     public float speed = 1f;
@@ -252,6 +254,13 @@ public class Player : MonoBehaviour
                 canDamage = Time.time + damageRate;
             } 
         }
+
+        if (collision.gameObject.name.Equals("KitchenCounter1"))
+            {
+                Debug.Log("trigger enter 2d is working for kitchen dialogue 1");
+                dia.self.SetActive(true);
+                dia.SetDialogueText(dia.allDialogue[1], dia.textLabel);
+            }
     }
 
     private void OnTriggerStay2D(Collider2D collision)

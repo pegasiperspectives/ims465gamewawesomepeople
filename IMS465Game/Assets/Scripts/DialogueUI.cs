@@ -2,16 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DialogueUI : MonoBehaviour
 {
 
-    [SerializeField] private TMP_Text textLabel;
+    [SerializeField] public TMP_Text textLabel;
     [SerializeField] private float typeSpeed = 50;
-    [SerializeField] GameObject self;
+    [SerializeField] public GameObject self;
 
-    private string[] allDialogue = {"That was a strange dream... oh well, I'm hungry. I'm gonna go down to the kitchen for a cookie.",
+    public Player player;
+
+    public string[] allDialogue = {"That was a strange dream... oh well, I'm hungry. I'm gonna go down to the kitchen for a cookie.\n\n(Please press x to close the dialogue boxes).",
             "Aw come on, Mom and Dad locked the cupboard again! I bet they hid the key in their room.",
             "Uh... where are Mom and Dad?",
             "Ahhhh-----what was that?!",
@@ -33,7 +36,10 @@ public class DialogueUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKey(KeyCode.X))
+        {
+            closeDialogue();
+        }
     }
 
     public void SetDialogueText(string textToType, TMP_Text textLabel)
@@ -60,7 +66,8 @@ public class DialogueUI : MonoBehaviour
         textLabel.text = textToType;
     }
 
-    private void closeDialogue() {
+    private void closeDialogue()
+    {
         self.SetActive(false);
     }
 }
