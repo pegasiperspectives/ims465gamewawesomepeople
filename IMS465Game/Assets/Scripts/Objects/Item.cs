@@ -6,77 +6,112 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     [SerializeField] private GameObject ItemInstructions;
+    public Player MyPlayer;
+
+    public bool isKey;
+
+    private bool pickedUp = false;
 
     // Start is called before the first frame update ooga booga
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     /// <summary>
     /// Allows you to pick up the Item
     /// </summary>
-    public void pickUp()
+    public void pickUpAndPutDown()
     {
-        if (gameObject.activeSelf == true)
-            gameObject.SetActive(false);
-    }
-
-    /// <summary>
-    /// Shows the instructions for the Item
-    /// </summary>
-    public void showInstructions()
-    {
-        if (ItemInstructions != null && ItemInstructions.gameObject.activeSelf == false)
-            ItemInstructions.gameObject.SetActive(true);
-    }
-
-    /// <summary>
-    /// Hides the instructions for the Item
-    /// </summary>
-    public void hideInstructions()
-    {
-        if (ItemInstructions != null && ItemInstructions.gameObject.activeSelf == true)
-            ItemInstructions.gameObject.SetActive(false);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        //Debug.Log("We colidied with: " + collision.gameObject.name);
-
-        // If colliding with the player
-        if (collision.gameObject.CompareTag("Player"))
+        if (!pickedUp)
         {
-            showInstructions();
-        }
-    }
+            gameObject.SetActive(false); 
+            pickedUp = true; 
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        // If colliding with the player
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            // when pressing E
-            if (Input.GetKey(KeyCode.E))
+            if (gameObject.name.Equals("Ladder"))
             {
-                hideInstructions();
-                pickUp();
+                MyPlayer.speed = 3f;
             }
         }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        // If colliding with the player
-        if (collision.gameObject.CompareTag("Player"))
+        else
         {
+            Vector3 placementPosition = MyPlayer.transform.position + MyPlayer.transform.right * 0.5f; 
+            transform.position = placementPosition;
+            gameObject.SetActive(true); 
+            pickedUp = false; 
+
+            Debug.Log("Placed object at: " + placementPosition);
+
+            if (gameObject.name.Equals("Ladder"))
+            {
+                MyPlayer.speed = 7f;
+            }
+        }
+}
+
+/* public void putDown()
+{
+    if (gameObject.activeSelf == false)
+        gameObject.SetActive(true);
+        //MyPlayer.speed = 2.5f;
+} */
+
+/// <summary>
+/// Shows the instructions for the Item
+/// </summary>
+public void showInstructions()
+{
+    if (ItemInstructions != null && ItemInstructions.gameObject.activeSelf == false)
+        ItemInstructions.gameObject.SetActive(true);
+}
+
+/// <summary>
+/// Hides the instructions for the Item
+/// </summary>
+public void hideInstructions()
+{
+    if (ItemInstructions != null && ItemInstructions.gameObject.activeSelf == true)
+        ItemInstructions.gameObject.SetActive(false);
+}
+
+private void OnTriggerEnter2D(Collider2D collision)
+{
+    //Debug.Log("We colidied with: " + collision.gameObject.name);
+
+    // If colliding with the player
+    if (collision.gameObject.CompareTag("Player"))
+    {
+        showInstructions();
+    }
+}
+
+private void OnTriggerStay2D(Collider2D collision)
+{
+    // If colliding with the player
+    if (collision.gameObject.CompareTag("Player"))
+    {
+        // when pressing E
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            //if (isKey == true)
             hideInstructions();
+            pickUpAndPutDown();
         }
     }
+}
+
+private void OnTriggerExit2D(Collider2D collision)
+{
+    // If colliding with the player
+    if (collision.gameObject.CompareTag("Player"))
+    {
+        hideInstructions();
+    }
+}
 }
