@@ -6,6 +6,8 @@ public class RoomChecker : MonoBehaviour
 {
     private CameraManager CM;
 
+    private bool playerIsHere = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,12 +20,27 @@ public class RoomChecker : MonoBehaviour
         
     }
 
+    public bool GetPlayerCheck()
+    {
+        return playerIsHere;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // If colliding with the player
         if (collision.gameObject.CompareTag("Player"))
         {
+            playerIsHere = true;
             CM.CameraPosition(transform.position);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        // If colliding with the player
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            playerIsHere = false;
         }
     }
 }
