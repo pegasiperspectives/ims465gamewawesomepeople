@@ -11,9 +11,9 @@ public class Player : MonoBehaviour
     public DialogueUI dia;
 
     [Header("Movement")]
-    [Tooltip("Change how fast the Player moves"), Min(0), SerializeField] 
+    [Tooltip("Change how fast the Player moves"), Min(0), SerializeField]
     public float speed = 1f;
-    [Tooltip("How far up the player can move"), SerializeField] 
+    [Tooltip("How far up the player can move"), SerializeField]
     private float UpLimit = -1;
     [Tooltip("How far down the player can move"), SerializeField]
     private float DownLimit = -2;
@@ -252,25 +252,32 @@ public class Player : MonoBehaviour
             {
                 DamagePlayer(1);
                 canDamage = Time.time + damageRate;
-            } 
+            }
         }
 
         if (collision.gameObject.name.Equals("KitchenCounter1"))
-            {
-                Debug.Log("trigger enter 2d is working for kitchen dialogue 1");
-                dia.self.SetActive(true);
-                dia.SetDialogueText(dia.allDialogue[1], dia.textLabel);
-            }
+        {
+            Debug.Log("trigger enter 2d is working for kitchen dialogue 1");
+            dia.self.SetActive(true);
+            dia.SetDialogueText(dia.allDialogue[1], dia.textLabel);
+        }
+
+        if (collision.gameObject.name.Equals("ChairInParentsRoom"))
+        {
+            Debug.Log("trigger enter 2d is working for chair in parents room");
+            dia.self.SetActive(true);
+            dia.SetDialogueText(dia.allDialogue[2], dia.textLabel);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        
+
     }
 
 

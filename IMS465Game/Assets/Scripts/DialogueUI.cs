@@ -16,13 +16,9 @@ public class DialogueUI : MonoBehaviour
 
     public string[] allDialogue = {"That was a strange dream... oh well, I'm hungry. I'm gonna go down to the kitchen for a cookie.\n\n(Please press x to close the dialogue boxes).",
             "Aw come on, Mom and Dad locked the cupboard again! I bet they hid the key in their room.",
-            "Uh... where are Mom and Dad?",
-            "Ahhhh-----what was that?!",
-            "Ok... I'm fine. The cookies will make this all better, yup. I'm no chicken. I'm going back in.",
-            "Yes! I got it! I'm not scared of silly lights! Or darkness!",
+            "Uh... where are Mom and Dad? Hm... well... I'm sure I can find them after I get the cookies.",
             "Yes! The cookies! They're mineeee!",
-            "Wait-----what was that crash?",
-            "Was that Mom and Dad in the garage? Hey----why do they keep locking all these doors! And why did they put the key so high up on that shelf? I'll need a ladder... wait----right! There's one in the attic!",
+            "Wait-----what was that crash? Was that Mom and Dad in the garage? Hey----why do they keep locking all these doors! And why did they put the key so high up on that shelf? I'll need a ladder... wait----right! There's one in the attic!",
             "And there----now I've got a ladder! Time to get the key and see what's in the garage."};
 
 
