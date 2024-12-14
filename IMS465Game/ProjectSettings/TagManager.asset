@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Wall
   - Item
+  - Checker
   layers:
   - Default
   - TransparentFX

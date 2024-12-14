@@ -25,6 +25,8 @@ public class Player : MonoBehaviour
     private int maxHealth;
     [Tooltip("The current amount of health the player has"), Min(0), SerializeField]
     private int currentHealth;
+    [Tooltip("How far down the player can move"), SerializeField]
+    private Sprite[] damageSprites;
 
     // Temporary
     private float damageRate = .1f;
@@ -209,7 +211,7 @@ public class Player : MonoBehaviour
     /// Damages the player
     /// </summary>
     /// <param name="damageAmount"> The amount of Damage the player will take </param>
-    private void DamagePlayer(int damageAmount)
+    public void DamagePlayer(int damageAmount)
     {
         // avoid negatives
         if (damageAmount <= 0)
@@ -221,13 +223,17 @@ public class Player : MonoBehaviour
             // avoid negatives
             if (currentHealth < 0)
                 currentHealth = 0;
+
+            if (damageSprites.Length >= currentHealth)
+                GetComponent<SpriteRenderer>().sprite = damageSprites[currentHealth];
+            else
+                Debug.LogWarning("Sprite for player taking damage isn't set correctly: " + currentHealth);
         }
 
         // if dead
         if (currentHealth == 0)
         {
             Respawn();
-            currentHealth = maxHealth;
         }
 
         Debug.Log(GetHealth());
@@ -240,6 +246,8 @@ public class Player : MonoBehaviour
     private void Respawn()
     {
         transform.position = respawnPos;
+        currentHealth = maxHealth;
+        GetComponent<SpriteRenderer>().sprite = damageSprites[currentHealth];
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

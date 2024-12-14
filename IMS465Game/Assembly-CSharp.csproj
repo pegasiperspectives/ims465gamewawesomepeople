@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\DialogueUI.cs" />
     <Compile Include="Assets\Scripts\Managers\UiManager.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\EnemyCat.cs" />
     <Compile Include="Assets\Scripts\Managers\TraversalManager.cs" />
     <Compile Include="Assets\Scripts\Objects\Door.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
