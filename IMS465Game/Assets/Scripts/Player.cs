@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
 
     private Vector3 respawnPos;
 
+    private bool hasKeyNow = false;
+    private bool hasCookies = false;
     public DialogueUI dia;
 
     [Header("Movement")]
@@ -257,9 +259,20 @@ public class Player : MonoBehaviour
 
         if (collision.gameObject.name.Equals("KitchenCounter1"))
         {
-            Debug.Log("trigger enter 2d is working for kitchen dialogue 1");
-            dia.self.SetActive(true);
-            dia.SetDialogueText(dia.allDialogue[1], dia.textLabel);
+            if (hasKeyNow == false)
+            {
+                Debug.Log("trigger enter 2d is working for kitchen dialogue 1");
+                dia.self.SetActive(true);
+                dia.SetDialogueText(dia.allDialogue[1], dia.textLabel);
+            }
+
+            if (hasKeyNow == true)
+            {
+                Debug.Log("trigger enter 2d is working for kitchen counter cookies");
+                dia.self.SetActive(true);
+                dia.SetDialogueText(dia.allDialogue[3], dia.textLabel);
+                hasCookies = true;
+            }
         }
 
         if (collision.gameObject.name.Equals("ChairInParentsRoom"))
@@ -268,6 +281,19 @@ public class Player : MonoBehaviour
             dia.self.SetActive(true);
             dia.SetDialogueText(dia.allDialogue[2], dia.textLabel);
         }
+
+        if (collision.gameObject.name.Equals("Door To Garage") && hasCookies == true)
+        {
+            Debug.Log("trigger enter 2d is working for chair in parents room");
+            dia.self.SetActive(true);
+            dia.SetDialogueText(dia.allDialogue[4], dia.textLabel);
+        }
+
+        if (collision.gameObject.name.Equals("key for cookies"))
+        {
+            hasKeyNow = true;
+        }
+
     }
 
     private void OnTriggerStay2D(Collider2D collision)
