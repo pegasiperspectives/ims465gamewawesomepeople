@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
 
     [Header("Movement")]
     [Tooltip("Change how fast the Player moves"), Min(0), SerializeField] 
-    private float speed = 1f;
+    public float speed = 1f;
     [Tooltip("How far up the player can move"), SerializeField] 
     private float UpLimit = -1;
     [Tooltip("How far down the player can move"), SerializeField]

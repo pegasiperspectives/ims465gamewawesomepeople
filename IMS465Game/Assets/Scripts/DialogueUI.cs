@@ -9,6 +9,7 @@ public class DialogueUI : MonoBehaviour
 
     [SerializeField] private TMP_Text textLabel;
     [SerializeField] private float typeSpeed = 50;
+    [SerializeField] GameObject self;
 
     private string[] allDialogue = {"That was a strange dream... oh well, I'm hungry. I'm gonna go down to the kitchen for a cookie.",
             "Aw come on, Mom and Dad locked the cupboard again! I bet they hid the key in their room.",
@@ -57,5 +58,9 @@ public class DialogueUI : MonoBehaviour
         }
 
         textLabel.text = textToType;
+    }
+
+    private void closeDialogue() {
+        self.SetActive(false);
     }
 }

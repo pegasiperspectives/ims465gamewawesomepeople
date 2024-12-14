@@ -6,6 +6,7 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     [SerializeField] private GameObject ItemInstructions;
+     public Player MyPlayer;
 
     // Start is called before the first frame update ooga booga
     void Start()
@@ -26,6 +27,14 @@ public class Item : MonoBehaviour
     {
         if (gameObject.activeSelf == true)
             gameObject.SetActive(false);
+            MyPlayer.speed = 1.5f;
+    }
+
+     public void putDown()
+    {
+        if (gameObject.activeSelf == false)
+            gameObject.SetActive(true);
+            MyPlayer.speed = 2.5f;
     }
 
     /// <summary>
@@ -67,6 +76,11 @@ public class Item : MonoBehaviour
             {
                 hideInstructions();
                 pickUp();
+            }
+
+            if (Input.GetKey(KeyCode.P))
+            {
+                putDown();
             }
         }
     }
